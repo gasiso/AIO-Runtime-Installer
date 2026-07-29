@@ -1,0 +1,11 @@
+# Logs
+*.log
+*.err
+*.trace
+
+# PowerShell / OS temporary files
+*~
+*.tmp
+*.bak
+.DS_Store
+Thumbs.db
