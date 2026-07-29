@@ -10,11 +10,7 @@
   <a href="README.en.md">🇺🇸 English</a> | <b>🇧🇷 Português</b>
 </p>
 
-## 📥 Download
 
-**[Baixe o Script de Instalação (instalar-runtimes.ps1)](https://raw.githubusercontent.com/gasiso/AIO-Runtime-Installer/master/instalar-runtimes.ps1)**
-
-*(Clique com o botão direito no link, selecione "Salvar link como..." e salve como `.ps1`)*
 
 ---
 
