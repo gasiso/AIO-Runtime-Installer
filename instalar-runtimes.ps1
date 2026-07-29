@@ -1,4 +1,4 @@
-﻿<#
+<#
 .SYNOPSIS
     AIO Runtime Installer — Instala TODOS os runtimes essenciais do Windows via WinGet.
 
@@ -516,20 +516,28 @@ function Scan-System {
 }
 
 function Show-InteractiveMenu {
-    $categories = @($script:RuntimeCatalog.Keys)
-    $selected   = @{}
+    $allCategories = @($script:RuntimeCatalog.Keys)
+    $categories    = @()
+    $selected      = @{}
 
-    for ($i = 0; $i -lt $categories.Count; $i++) {
-        $cat = $categories[$i]
+    foreach ($cat in $allCategories) {
         $pkgs = $script:RuntimeCatalog[$cat].Packages
         $installedCount = @($pkgs | Where-Object { $_.ContainsKey('IsInstalled') -and $_.IsInstalled }).Count
         
-        if ($installedCount -eq $pkgs.Count) {
-            $selected[$i] = $false
+        if ($installedCount -lt $pkgs.Count) {
+            $categories += $cat
+            $selected[($categories.Count - 1)] = $true
         }
-        else {
-            $selected[$i] = $true
-        }
+    }
+
+    if ($categories.Count -eq 0) {
+        Write-Host ""
+        Write-Host "  [OK] Todos os runtimes e dependencias ja estao instalados no seu PC!" -ForegroundColor $script:Colors.Success
+        Write-Host "  Nao ha mais nada para fazer." -ForegroundColor $script:Colors.Info
+        Write-Host ""
+        Write-Host "  Pressione qualquer tecla para sair..." -ForegroundColor $script:Colors.Muted
+        $null = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown')
+        exit 0
     }
 
     $currentIndex = 0
